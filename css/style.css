@@ -225,12 +225,12 @@ legend .link { margin-left: 8px; }
 /* 頁尾 */
 .site-footer {
   border-top: 1px solid var(--border);
-  padding: 20px 0 32px;
+  padding: 16px 0 24px;
   color: var(--muted);
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   text-align: center;
 }
-.site-footer a { color: var(--accent); word-break: break-all; }
+.site-footer a { color: inherit; }
 
 /* 成績 */
 .score { text-align: center; }

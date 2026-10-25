@@ -6,6 +6,12 @@ const app = document.getElementById("app");
 const modeLinks = document.querySelectorAll(".modes a");
 let data = null;
 
+// 信箱拆開組，原始碼裡不會出現完整地址，比較不會被收集垃圾信的程式抓到
+const contact = document.getElementById("contact");
+const email = ["A11523021", "yuntech.edu.tw"].join("@");
+contact.href = `mailto:${email}`;
+contact.title = email;
+
 // 網址：#read、#read?unit=1、#quiz
 function route() {
   const [mode, query = ""] = location.hash.slice(1).split("?");
