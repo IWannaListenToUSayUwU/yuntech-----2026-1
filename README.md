@@ -16,8 +16,8 @@
 - `js/read.js`：閱讀模式
 - `js/quiz.js`：測驗模式
 - `js/ui.js`：共用的小工具
-- `js/upload.js`：上傳模式（安裝書籤的圖解說明）
-- `js/guide.js`：圖解用的 SVG
+- `js/upload.js`：上傳模式（安裝書籤的說明）
+- `img/upload-demo.gif`：上傳頁的操作示範動畫，由 `scripts/demo/` 產生
 - `bookmarklet.js`：書籤「📥 上傳到題庫」實際執行的程式，在 eclass 頁面上讀題目並上傳
 - `js/parser.js`：開發用，把 TronClass 測驗結果頁複製出來的文字拆成題目
 - `supabase/schema.sql`：資料表與權限

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; width: 720px; height: 470px; background: #f5f5f2; font: 14px/1.5 -apple-system, "PingFang TC", sans-serif; color: #1d1d1f; overflow: hidden; }
+  .caption { position: absolute; left: 0; right: 0; top: 0; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 19px; font-weight: 700; color: #2f5bd3; }
+  .win { position: absolute; left: 20px; top: 50px; width: 680px; height: 404px; background: #fff; border: 1px solid #dcdcd6; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 24px rgb(0 0 0 / .12); }
+  .top { background: #ececea; height: 118px; position: relative; }
+  .dots { position: absolute; left: 14px; top: 16px; display: flex; gap: 7px; }
+  .dots i { width: 11px; height: 11px; border-radius: 50%; background: #d0d0cb; display: block; }
+  .tab { position: absolute; left: 76px; top: 8px; width: 200px; height: 32px; background: #fff; border-radius: 8px 8px 0 0; padding: 6px 12px; font-size: 13px; white-space: nowrap; overflow: hidden; }
+  .url { position: absolute; left: 12px; right: 12px; top: 46px; height: 30px; background: #fff; border-radius: 15px; padding: 5px 16px; font-size: 13px; color: #6b6b70; }
+  .bar { position: absolute; left: 0; right: 0; top: 82px; height: 36px; border-top: 1px solid #e0e0dc; background: #f6f6f4; }
+  .barlabel { position: absolute; left: 12px; top: 8px; font-size: 12px; color: #a0a0a6; }
+  .mark { position: absolute; left: 12px; top: 6px; height: 24px; padding: 2px 12px; border-radius: 12px; background: #fff; border: 1px solid #dcdcd6; font-size: 13px; white-space: nowrap; }
+  .mark.hot { background: #e8eefc; border-color: #2f5bd3; color: #2f5bd3; }
+  .page { position: absolute; left: 0; right: 0; top: 118px; bottom: 0; padding: 22px 28px; }
+  .site h3 { margin: 0 0 6px; font-size: 18px; }
+  .site p { margin: 0 0 14px; color: #6b6b70; font-size: 13px; }
+  .btn { display: inline-block; padding: 9px 18px; border-radius: 10px; background: #2f5bd3; color: #fff; font-weight: 700; white-space: nowrap; }
+  .btn.down { background: #2449ad; }
+  .ghost { position: absolute; padding: 4px 12px; border-radius: 12px; background: rgb(47 91 211 / .85); color: #fff; font-size: 13px; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 12px rgb(0 0 0 / .2); }
+  .eclass .head { height: 40px; margin: -22px -28px 18px; background: #0d6e5f; color: #fff; padding: 9px 28px; font-weight: 700; }
+  .line { height: 10px; border-radius: 5px; background: #efefeb; margin-bottom: 12px; }
+  .panel { position: absolute; right: 14px; top: 128px; width: 270px; padding: 12px 14px; background: #fff; border: 1px solid #e4e4df; border-radius: 12px; box-shadow: 0 8px 26px rgb(0 0 0 / .18); font-size: 13px; }
+  .panel b { display: block; font-size: 14px; margin-bottom: 4px; }
+  .panel .l { color: #6b6b70; } .panel .ok { color: #1a7f37; }
+  .sum { margin-top: 6px; padding: 6px 10px; background: #f5f5f2; border-radius: 8px; }
+  .sum div { display: flex; justify-content: space-between; }
+  .pbtn { margin-top: 8px; padding: 7px; border-radius: 8px; background: #2f5bd3; color: #fff; text-align: center; font-weight: 700; }
+  .pbtn.down { background: #2449ad; }
+  .cursor { position: absolute; width: 22px; height: 30px; z-index: 10; }
+  .click { position: absolute; width: 34px; height: 34px; border-radius: 50%; border: 3px solid #2f5bd3; z-index: 9; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+  <div class="caption" id="cap"></div>
+  <div class="win">
+    <div class="top">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div class="tab" id="tab"></div>
+      <div class="url" id="url"></div>
+      <div class="bar"><span class="barlabel" id="barlabel">書籤列（網址列下面這一條）</span><span class="mark" id="mark" hidden>📥 上傳到題庫</span></div>
+    </div>
+    <div class="page site" id="site">
+      <h3>用書籤一鍵上傳</h3>
+      <p>把下面這個按鈕拖曳到書籤列：</p>
+      <span class="btn" id="btn">📥 上傳到題庫</span>
+      <div style="height:22px"></div>
+      <div class="line" style="width:70%"></div><div class="line" style="width:55%"></div>
+    </div>
+    <div class="page eclass" id="eclass" hidden>
+      <div class="head">eclass 雲科大</div>
+      <div class="line" style="width:60%"></div><div class="line" style="width:80%"></div>
+      <div class="line" style="width:50%"></div><div class="line" style="width:70%"></div>
+      <div class="line" style="width:40%"></div>
+    </div>
+  </div>
+  <div class="ghost" id="ghost" hidden>📥 上傳到題庫</div>
+  <div class="panel" id="panel" hidden></div>
+  <div class="click" id="click" hidden></div>
+  <svg class="cursor" id="cursor" viewBox="0 0 22 30"><path d="M1 1v23l6-6 5 11 4-2-5-11h9z" fill="#111" stroke="#fff" stroke-width="1.5"/></svg>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const ease = (k) => (k < 0 ? 0 : k > 1 ? 1 : k < 0.5 ? 2 * k * k : 1 - (-2 * k + 2) ** 2 / 2);
+  const seg = (t, a, b) => ease((t - a) / (b - a));
+
+  // 位置（相對整張畫面）
+  const center = (el) => { const r = el.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; };
+  const BTN = center($("btn"));                                  // 網頁上的藍色按鈕中心
+  $("mark").hidden = false;
+  const MARK = center($("mark"));                                // 書籤列上的書籤
+  $("mark").hidden = true;
+  const PBTN = { x: 720 - 14 - 135, y: 0 };                     // 面板按鈕（動態）
+
+  function setCursor(x, y) { $("cursor").style.left = x + "px"; $("cursor").style.top = y + "px"; }
+  function ripple(x, y, k) {
+    const c = $("click");
+    c.hidden = k <= 0 || k >= 1;
+    const s = 14 + 30 * k;
+    Object.assign(c.style, { left: x - s / 2 + "px", top: y - s / 2 + "px", width: s + "px", height: s + "px", opacity: 1 - k });
+  }
+
+  const PANEL_LINES = [
+    [6.6, '<span class="l">讀取管理學的線上測驗…</span>'],
+    [7.2, '<span class="ok">CH1：讀到 20 題</span>'],
+    [7.7, '<span class="ok">CH2：讀到 20 題</span>'],
+    [8.2, '<span class="ok">CH3：讀到 20 題</span>'],
+    [8.7, '<span class="ok">CH4：讀到 20 題</span>'],
+    [9.2, '<span class="l">和題庫比對中…</span>'],
+  ];
+
+  window.render = (t) => {
+    // 字幕
+    $("cap").textContent =
+      t < 4.2 ? "① 按住藍色按鈕，拖到書籤列" :
+      t < 6.2 ? "② 登入 eclass（任何一頁），按書籤" :
+      t < 11.2 ? "③ 自動讀出題目，先預覽" :
+      "④ 按上傳，完成！";
+
+    const onEclass = t >= 4.2;
+    $("site").hidden = onEclass;
+    $("eclass").hidden = !onEclass;
+    $("tab").textContent = onEclass ? "eclass 雲科大" : "2026雲科管理學題庫";
+    $("url").textContent = onEclass ? "eclass.yuntech.edu.tw/user/courses" : "iwannalistentousayuwu.github.io/…/#upload";
+
+    // ① 拖曳
+    const placed = t >= 3.0;
+    $("mark").hidden = !placed;
+    $("barlabel").hidden = placed;
+    $("btn").classList.toggle("down", t >= 1.2 && t < 3.0);
+    const g = $("ghost");
+    g.hidden = !(t >= 1.4 && t < 3.0);
+    let cx, cy;
+    if (t < 1.2) {
+      const k = seg(t, 0.2, 1.1);
+      cx = lerp(560, BTN.x, k); cy = lerp(420, BTN.y, k);
+    } else if (t < 3.0) {
+      const k = seg(t, 1.4, 2.8);
+      cx = lerp(BTN.x, MARK.x, k); cy = lerp(BTN.y, MARK.y, k);
+      g.style.left = cx - 50 + "px"; g.style.top = cy - 30 + "px";
+    } else if (t < 4.2) {
+      cx = MARK.x; cy = MARK.y;
+    } else if (t < 5.6) {
+      const k = seg(t, 4.4, 5.4);
+      cx = lerp(420, MARK.x, k); cy = lerp(380, MARK.y, k);
+    } else {
+      cx = MARK.x; cy = MARK.y;
+    }
+
+    // ② 按書籤
+    $("mark").classList.toggle("hot", (t >= 5.6 && t < 6.2) || (t >= 3.0 && t < 3.4));
+    ripple(MARK.x, MARK.y, (t - 5.6) / 0.6);
+
+    // ③ 面板
+    const p = $("panel");
+    p.hidden = t < 6.2;
+    if (!p.hidden) {
+      let html = "<b>📥 上傳到題庫</b>";
+      for (const [at, line] of PANEL_LINES) if (t >= at) html += `<div>${line}</div>`;
+      const done = t >= 12.6;
+      if (t >= 9.8) {
+        html += `<div class="sum">
+          <div><span>CH1</span><span>新 20 題／已有 0 題</span></div>
+          <div><span>CH2</span><span>新 0 題／已有 20 題</span></div>
+          <div><span>CH3</span><span>新 20 題／已有 0 題</span></div>
+          <div><span>CH4</span><span>新 20 題／已有 0 題</span></div></div>`;
+        html += done
+          ? '<div class="ok" style="margin-top:8px;font-weight:700">上傳完成，新增 60 題，謝謝！</div>'
+          : `<div class="pbtn${t >= 11.9 ? " down" : ""}" id="pbtn">${t >= 12.1 ? "上傳中…" : "上傳 60 題新題目"}</div>`;
+      }
+      p.innerHTML = html;
+    }
+
+    // ④ 按上傳
+    if (t >= 10.4) {
+      const r = $("pbtn")?.getBoundingClientRect();
+      if (r) { PBTN.x = r.left + r.width / 2; PBTN.y = r.top + r.height / 2; }
+      const k = seg(t, 10.4, 11.6);
+      cx = lerp(MARK.x, PBTN.x, k); cy = lerp(MARK.y, PBTN.y, k);
+      ripple(PBTN.x, PBTN.y, (t - 11.9) / 0.6);
+    }
+    setCursor(cx - 2, cy - 2);
+  };
+  render(0);
+</script>
+</body>
+</html>

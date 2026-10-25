@@ -364,6 +364,8 @@ legend { padding: 0; margin-bottom: 10px; font-weight: 600; font-size: 0.9375rem
 .score .check:has(input:disabled) { display: none; }
 
 /* ── 上傳 ── */
+.steps { margin: 0 0 12px; padding-left: 1.4em; display: grid; gap: 10px; }
+
 kbd {
   padding: 0 5px;
   background: var(--soft);
@@ -373,67 +375,11 @@ kbd {
   font-size: 0.8125rem;
 }
 
-.bookmarklet-row { margin: 4px 0 12px; }
+.bookmarklet-row { margin: 10px 0 2px; }
 
-.lead { margin: -8px 0 20px; font-size: 0.9375rem; }
-
-.step-list { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 28px; }
-.step-head { display: flex; gap: 10px; align-items: center; margin-bottom: 6px; }
-.step-head h3 { margin: 0; font-size: 1rem; }
-.step-head .num { background: var(--accent-soft); color: var(--accent); }
-.step p { margin: 0 0 12px; }
-
-.illustration { margin: 0; }
-.illustration svg { display: block; width: 100%; height: auto; }
-
-/* 圖解裡的顏色跟著主題 */
-.illustration .frame { fill: var(--surface); stroke: var(--border); stroke-width: 2; }
-.illustration .chrome { fill: var(--soft); }
-.illustration .tab { fill: var(--surface); }
-.illustration .dot { fill: var(--border); }
-.illustration .sep { stroke: var(--border); stroke-width: 1.5; }
-.illustration .line { fill: var(--soft); }
-.illustration .t { fill: var(--fg); font-size: 14px; font-family: inherit; }
-.illustration .muted { fill: var(--muted); }
-.illustration .accent { fill: var(--accent); font-weight: 600; }
-.illustration .ok { fill: var(--ok); }
-.illustration .hl { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 4; }
-.illustration .ghost { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
-.illustration .ghost-t { fill: var(--accent); font-size: 13px; }
-.illustration .mark { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
-.illustration .mark-t { fill: var(--accent); font-size: 13px; font-weight: 600; }
-.illustration .btn { fill: var(--accent); }
-.illustration .btn-t { fill: var(--accent-fg); font-size: 15px; font-weight: 600; font-family: inherit; }
-.illustration .arrow { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
-.illustration .arrow-head { fill: var(--accent); }
-.illustration .cursor { fill: var(--fg); stroke: var(--surface); stroke-width: 1.5; }
-.illustration .key { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
-.illustration .key-t { fill: var(--fg); font-size: 14px; font-weight: 600; font-family: inherit; }
-.illustration .panel-r { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; filter: drop-shadow(0 4px 10px rgb(0 0 0 / 0.15)); }
-
-.fallback {
-  margin-top: 14px;
-  padding: 10px 14px;
-  background: var(--soft);
-  border-radius: 10px;
-  font-size: 0.9375rem;
-}
-.fallback summary { cursor: pointer; color: var(--accent); font-weight: 600; }
-.steps-plain { margin: 10px 0 4px; padding-left: 1.4em; display: grid; gap: 8px; }
-
-code, .code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.8125rem; }
-.code {
-  margin: 6px 0 0;
-  padding: 8px 10px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  white-space: pre-wrap;
-  word-break: break-all;
-  color: var(--muted);
-}
-
-.secondary.small { padding: 3px 10px; font-size: 0.8125rem; font-weight: normal; }
+.demo { margin: 20px 0 0; }
+.demo figcaption { margin-bottom: 8px; font-weight: 600; font-size: 0.9375rem; }
+.demo img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; }
 
 .bookmarklet {
   display: inline-block;
