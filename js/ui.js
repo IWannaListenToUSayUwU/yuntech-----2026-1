@@ -21,12 +21,17 @@ export function answerText(q) {
   return letters.length ? letters.join("、") : q.answers.join("、");
 }
 
-// 題目卡片的上半部：題號、單元、題型、題目
+// 題目卡片的上半部：題號、題目，必要時加上單元和題型
+// unitTitle 傳 null 表示不用顯示（例如只看單一單元時）；單選題是預設，不另外標
 export function cardHead(q, number, unitTitle) {
-  return [
-    h("div", { class: "meta" }, `第 ${number} 題 · ${unitTitle} · ${TYPE_LABEL[q.qtype] ?? q.qtype}`),
-    h("p", { class: "stem" }, q.stem),
-  ];
+  const tags = [unitTitle, q.qtype === "single" ? null : TYPE_LABEL[q.qtype] ?? q.qtype].filter(Boolean);
+  return h("div", { class: "card-head" },
+    h("span", { class: "num" }, number),
+    h("div", {},
+      tags.length ? h("div", { class: "meta" }, tags.join(" · ")) : null,
+      h("p", { class: "stem" }, q.stem)
+    )
+  );
 }
 
 export function explanation(q) {

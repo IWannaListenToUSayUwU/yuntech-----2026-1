@@ -1,18 +1,17 @@
 // 閱讀模式：一次列出題目，答案直接標好
-import { h, letter, answerText, cardHead, explanation, matches } from "./ui.js";
+import { h, letter, cardHead, explanation, matches } from "./ui.js";
 
 function readCard(q, number, unitTitle) {
-  return h("li", { class: "card" },
+  return h("li", { class: "card reading" },
     cardHead(q, number, unitTitle),
     h("ul", { class: "options" },
       q.options.map((text, i) =>
         h("li", { class: q.answers.includes(text) ? "option correct" : "option" },
           h("span", { class: "label" }, letter(i)),
-          h("span", {}, text)
+          h("span", { class: "text" }, text)
         )
       )
     ),
-    h("p", { class: "answer" }, `正確答案：${answerText(q)}`),
     explanation(q)
   );
 }
@@ -22,8 +21,9 @@ export function showRead(app, { units, questions, unitTitle }, params) {
   const unitId = units.some((u) => u.id === unitParam) ? unitParam : null; // null = 全部單元
   const pool = unitId == null ? questions : questions.filter((q) => q.unit_id === unitId);
 
-  const tab = (href, label, current) =>
-    h("a", { href, "aria-current": current ? "page" : false }, label);
+  const tab = (href, label, count, current) =>
+    h("a", { href, class: "chip", "aria-current": current ? "page" : false },
+      label, h("span", { class: "chip-count" }, count));
 
   const search = h("input", { type: "search", class: "search", placeholder: "搜尋題目或選項…", autocomplete: "off" });
   const summary = h("p", { class: "summary" });
@@ -37,18 +37,19 @@ export function showRead(app, { units, questions, unitTitle }, params) {
     summary.textContent = keyword
       ? `${scope}：找到 ${shown.length} 題（共 ${pool.length} 題）`
       : `${scope}：共 ${pool.length} 題`;
-    list.replaceChildren(...shown.map((q, i) => readCard(q, i + 1, unitTitle.get(q.unit_id))));
+    const showUnit = unitId == null && units.length > 1;
+    list.replaceChildren(...shown.map((q, i) => readCard(q, i + 1, showUnit ? unitTitle.get(q.unit_id) : null)));
     empty.textContent = shown.length ? "" : keyword ? "找不到符合的題目" : "這個單元還沒有題目";
     empty.hidden = shown.length > 0;
   }
   search.addEventListener("input", renderList);
 
   app.replaceChildren(
-    h("nav", { class: "tabs", "aria-label": "單元" },
-      tab("#read", `全部單元（${questions.length}）`, unitId == null),
-      units.map((u) => tab(`#read?unit=${u.id}`, `${u.title}（${u.count}）`, u.id === unitId))
+    h("nav", { class: "chips", "aria-label": "單元" },
+      tab("#read", "全部單元", questions.length, unitId == null),
+      units.map((u) => tab(`#read?unit=${u.id}`, u.title, u.count, u.id === unitId))
     ),
-    h("div", { class: "toolbar" }, search),
+    search,
     summary,
     list,
     empty
