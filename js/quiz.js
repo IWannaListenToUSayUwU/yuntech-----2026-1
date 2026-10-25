@@ -13,6 +13,17 @@ function sample(items, n) {
   return a.slice(0, n);
 }
 
+// 跟 TronClass 一樣打亂選項；「以上皆是」「上述皆非」這類選項放回最後，不然意思會跑掉。
+// 答案存的是選項文字，所以打亂後照樣對得上。
+const PINNED_RE = /^(以上|上述)/;
+
+function shuffleOptions(q) {
+  if (q.qtype === "truefalse") return q;
+  const pinned = q.options.filter((o) => PINNED_RE.test(o));
+  const rest = q.options.filter((o) => !PINNED_RE.test(o));
+  return { ...q, options: [...sample(rest, rest.length), ...pinned] };
+}
+
 function showSetup(app, data) {
   const { units, questions } = data;
   const prev = lastSettings ?? { unitIds: units.map((u) => u.id), count: 20 };
@@ -97,8 +108,9 @@ function showSetup(app, data) {
   update();
 }
 
-function showRun(app, data, picked) {
+function showRun(app, data, questions) {
   const { unitTitle } = data;
+  const picked = questions.map(shuffleOptions);
   const showUnit = lastSettings.unitIds.length > 1;
   const progress = h("span", { class: "progress-text" });
   const bar = h("span", { class: "progress-fill" });
