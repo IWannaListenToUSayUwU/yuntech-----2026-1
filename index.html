@@ -10,22 +10,15 @@
   <header class="site-header">
     <div class="wrap">
       <h1>2026雲科管理學題庫（上）</h1>
-      <nav id="units" class="units" aria-label="單元"></nav>
+      <nav class="modes" aria-label="模式">
+        <a href="#read" data-mode="read">閱讀模式</a>
+        <a href="#quiz" data-mode="quiz">測驗模式</a>
+      </nav>
     </div>
   </header>
 
-  <main class="wrap">
-    <div class="toolbar">
-      <input id="search" type="search" placeholder="搜尋題目或選項…" autocomplete="off">
-      <label class="toggle">
-        <input id="show-all" type="checkbox">
-        <span>顯示全部答案</span>
-      </label>
-    </div>
-    <p id="summary" class="summary"></p>
-    <p class="hint">點選項直接作答，或按「看答案」。</p>
-    <ol id="questions" class="questions"></ol>
-    <p id="status" class="status">載入中…</p>
+  <main id="app" class="wrap">
+    <p class="status">載入中…</p>
   </main>
 
   <script type="module" src="js/main.js"></script>

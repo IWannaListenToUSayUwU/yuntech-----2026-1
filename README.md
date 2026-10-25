@@ -11,7 +11,11 @@
 - `css/style.css`：樣式
 - `js/config.js`：Supabase 連線設定（只放 publishable key）
 - `js/supabase.js`：建立 Supabase 連線
-- `js/main.js`：題目顯示頁
+- `js/main.js`：載入題庫、切換模式
+- `js/data.js`：從 Supabase 讀取單元與題目
+- `js/read.js`：閱讀模式
+- `js/quiz.js`：測驗模式
+- `js/ui.js`：兩種模式共用的小工具
 - `js/parser.js`：把 TronClass 測驗結果頁複製出來的文字拆成題目，並計算去重用的 fingerprint
 - `supabase/schema.sql`：資料表與權限，貼到 Supabase 的 SQL Editor 執行
 - `supabase/seed_unitN.sql`：各單元的題目
