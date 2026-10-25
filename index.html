@@ -7,11 +7,27 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <main>
-    <h1>2026雲科管理學題庫（上）</h1>
-    <p class="sub">網站建置中</p>
-    <p id="status" data-state="loading">正在連線到 Supabase…</p>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>2026雲科管理學題庫（上）</h1>
+      <nav id="units" class="units" aria-label="單元"></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="搜尋題目或選項…" autocomplete="off">
+      <label class="toggle">
+        <input id="show-all" type="checkbox">
+        <span>顯示全部答案</span>
+      </label>
+    </div>
+    <p id="summary" class="summary"></p>
+    <p class="hint">點選項直接作答，或按「看答案」。</p>
+    <ol id="questions" class="questions"></ol>
+    <p id="status" class="status">載入中…</p>
   </main>
+
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
