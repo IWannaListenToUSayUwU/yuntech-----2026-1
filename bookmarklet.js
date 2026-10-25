@@ -77,7 +77,7 @@
     doc.querySelectorAll("br").forEach((br) => br.replaceWith("\n"));
     doc.querySelectorAll("p, div, li").forEach((el) => el.append("\n"));
     return doc.body.textContent
-      .replace(/ /g, " ")
+      .replace(/\u00a0/g, " ")
       .replace(/[ \t]+\n/g, "\n")
       .replace(/\n{2,}/g, "\n")
       .trim();
