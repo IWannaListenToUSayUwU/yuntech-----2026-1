@@ -1,5 +1,5 @@
 // 把 TronClass 測驗結果頁「全選複製」出來的文字拆成題目。
-// 上傳頁的「手動貼上」和 Node（scripts/make-seed.mjs）共用這支。
+// 開發用，給 scripts/make-seed.mjs 匯入手動複製的題目。
 // 去除重複由資料庫負責（supabase/002_submit.sql 的 quiz_fingerprint）。
 
 const TYPE_MAP = {

@@ -16,9 +16,9 @@
 - `js/read.js`：閱讀模式
 - `js/quiz.js`：測驗模式
 - `js/ui.js`：共用的小工具
-- `js/upload.js`：上傳模式（安裝書籤、手動貼上）
+- `js/upload.js`：上傳模式（安裝書籤的說明）
 - `bookmarklet.js`：書籤「📥 上傳到題庫」實際執行的程式，在 eclass 頁面上讀題目並上傳
-- `js/parser.js`：把 TronClass 測驗結果頁複製出來的文字拆成題目，並計算去重用的 fingerprint
+- `js/parser.js`：開發用，把 TronClass 測驗結果頁複製出來的文字拆成題目
 - `supabase/schema.sql`：資料表與權限
 - `supabase/002_submit.sql`：上傳入口 `submit_questions()`、資料庫端去重
 - `supabase/003_unit1_is_ch2.sql`：一次性修正，最早的「單元一」其實是 CH2
@@ -31,5 +31,5 @@
 
 ## 新增題目
 
-- 同學：網站的「上傳」頁，用書籤一鍵上傳，或手動貼上
+- 同學：網站的「上傳」頁安裝書籤，在 eclass 按一下就會自動抓題目上傳
 - 開發用：`node scripts/make-seed.mjs <單元編號> <單元名稱> <文字檔>` 產生 SQL（要先執行過 `002_submit.sql`）

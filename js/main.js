@@ -22,7 +22,7 @@ function route() {
     else a.removeAttribute("aria-current");
   });
   if (current === "quiz") showQuiz(app, data);
-  else if (current === "upload") showUpload(app, data);
+  else if (current === "upload") showUpload(app);
   else showRead(app, data, new URLSearchParams(query));
   window.scrollTo(0, 0);
 }
