@@ -1,5 +1,6 @@
 // 把 TronClass 測驗結果頁「全選複製」出來的文字拆成題目。
-// 瀏覽器（之後的輸入頁、書籤小工具）和 Node（產生種子資料）共用這支。
+// 上傳頁的「手動貼上」和 Node（scripts/make-seed.mjs）共用這支。
+// 去除重複由資料庫負責（supabase/002_submit.sql 的 quiz_fingerprint）。
 
 const TYPE_MAP = {
   單選題: "single",
@@ -102,15 +103,4 @@ export function parseQuizText(text) {
   }
   finish();
   return questions;
-}
-
-// 去除重複用：忽略空白、標點、全半形，選項順序不同也算同一題
-function normalize(s) {
-  return s.normalize("NFKC").replace(/[\s\p{P}\p{S}]/gu, "").toLowerCase();
-}
-
-export async function fingerprint(q) {
-  const key = [q.qtype, normalize(q.stem), ...q.options.map(normalize).sort()].join("|");
-  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(key));
-  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }

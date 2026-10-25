@@ -15,24 +15,21 @@
 - `js/data.js`：從 Supabase 讀取單元與題目
 - `js/read.js`：閱讀模式
 - `js/quiz.js`：測驗模式
-- `js/ui.js`：兩種模式共用的小工具
+- `js/ui.js`：共用的小工具
+- `js/upload.js`：上傳模式（安裝書籤、手動貼上）
+- `bookmarklet.js`：書籤「📥 上傳到題庫」實際執行的程式，在 eclass 頁面上讀題目並上傳
 - `js/parser.js`：把 TronClass 測驗結果頁複製出來的文字拆成題目，並計算去重用的 fingerprint
-- `supabase/schema.sql`：資料表與權限，貼到 Supabase 的 SQL Editor 執行
-- `supabase/seed_unitN.sql`：各單元的題目
+- `supabase/schema.sql`：資料表與權限
+- `supabase/002_submit.sql`：上傳入口 `submit_questions()`、資料庫端去重
+- `supabase/003_unit1_is_ch2.sql`：一次性修正，最早的「單元一」其實是 CH2
+- `supabase/seed_unitN.sql`：手動匯入的題目
 - `scripts/make-seed.mjs`：從複製下來的文字產生 `seed_unitN.sql`
 
-## 新增一個單元的題目（目前的做法）
+## 資料庫
 
-1. 把 TronClass 測驗結果頁全選複製，存成文字檔（不要放進這個專案，裡面有個人作答紀錄）
-2. `node scripts/make-seed.mjs 2 "單元二" 文字檔路徑 > supabase/seed_unit2.sql`
-3. 把產生的 SQL 貼到 Supabase 的 SQL Editor 執行。重複的題目會自動略過
+全新的 Supabase 專案依序執行：`schema.sql` → `002_submit.sql` → 需要的話再匯入 `seed_*.sql`。
 
-## 本機預覽
+## 新增題目
 
-ES module 不能直接用 `file://` 開，要開一個本機伺服器：
-
-```
-python3 -m http.server 8000
-```
-
-然後打開 http://localhost:8000
+- 同學：網站的「上傳」頁，用書籤一鍵上傳，或手動貼上
+- 開發用：`node scripts/make-seed.mjs <單元編號> <單元名稱> <文字檔>` 產生 SQL（要先執行過 `002_submit.sql`）

@@ -363,6 +363,51 @@ legend { padding: 0; margin-bottom: 10px; font-weight: 600; font-size: 0.9375rem
 .score .check { justify-content: center; font-size: 0.9375rem; }
 .score .check:has(input:disabled) { display: none; }
 
+/* ── 上傳 ── */
+.steps { margin: 0 0 12px; padding-left: 1.4em; display: grid; gap: 10px; }
+
+kbd {
+  padding: 0 5px;
+  background: var(--soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 0.8125rem;
+}
+
+.bookmarklet-row { margin: 10px 0 2px; }
+
+.bookmarklet {
+  display: inline-block;
+  padding: 8px 18px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: grab;
+}
+
+.form { display: grid; gap: 10px; }
+.form-label { display: grid; gap: 4px; font-weight: 600; font-size: 0.9375rem; }
+
+.field {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--fg);
+  font: inherit;
+  font-weight: normal;
+}
+
+.paste { min-height: 160px; resize: vertical; }
+.actions.start { justify-content: flex-start; margin: 0; }
+
+.result { margin: 0; padding: 10px 12px; background: var(--ok-bg); color: var(--ok); border-radius: 10px; }
+.result.error { background: var(--error-bg); color: var(--error); }
+
 /* ── 頁尾 ── */
 .site-footer {
   padding: 16px 0 24px;
