@@ -222,6 +222,16 @@ legend .link { margin-left: 8px; }
 
 .warn { margin: 0; color: var(--error); font-size: 0.875rem; }
 
+/* 頁尾 */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 0 32px;
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+.site-footer a { color: var(--accent); word-break: break-all; }
+
 /* 成績 */
 .score { text-align: center; }
 .score-num { margin: 0; font-size: 2.5rem; font-weight: 700; }
